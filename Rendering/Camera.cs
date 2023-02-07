@@ -1,12 +1,4 @@
-﻿using OpenTK.Graphics.ES11;
-using OpenTK.Mathematics;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK.Mathematics;
 
 namespace Rendering;
 

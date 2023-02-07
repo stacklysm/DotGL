@@ -94,75 +94,75 @@ public static class ProgramUniformSet
                 break;
 
             case Matrix2 v0:
-                Matrix2(v0);
+                Matrix2(v0, transposeMatrix);
                 break;
 
             case Matrix2x3 v0:
-                Matrix2x3(v0);
+                Matrix2x3(v0, transposeMatrix);
                 break;
 
             case Matrix2x4 v0:
-                Matrix2x4(v0);
+                Matrix2x4(v0, transposeMatrix);
                 break;
 
             case Matrix3 v0:
-                Matrix3(v0);
+                Matrix3(v0, transposeMatrix);
                 break;
 
             case Matrix3x2 v0:
-                Matrix3x2(v0);
+                Matrix3x2(v0, transposeMatrix);
                 break;
 
             case Matrix3x4 v0:
-                Matrix3x4(v0);
+                Matrix3x4(v0, transposeMatrix);
                 break;
 
             case Matrix4 v0:
-                Matrix4(v0);
+                Matrix4(v0, transposeMatrix);
                 break;
 
             case Matrix4x2 v0:
-                Matrix4x2(v0);
+                Matrix4x2(v0, transposeMatrix);
                 break;
 
             case Matrix4x3 v0:
-                Matrix4x3(v0);
+                Matrix4x3(v0, transposeMatrix);
                 break;
 
             case Matrix2d v0:
-                Matrix2d(v0);
+                Matrix2d(v0, transposeMatrix);
                 break;
 
             case Matrix2x3d v0:
-                Matrix2x3d(v0);
+                Matrix2x3d(v0, transposeMatrix);
                 break;
 
             case Matrix2x4d v0:
-                Matrix2x4d(v0);
+                Matrix2x4d(v0, transposeMatrix);
                 break;
 
             case Matrix3d v0:
-                Matrix3d(v0);
+                Matrix3d(v0, transposeMatrix);
                 break;
 
             case Matrix3x2d v0:
-                Matrix3x2d(v0);
+                Matrix3x2d(v0, transposeMatrix);
                 break;
 
             case Matrix3x4d v0:
-                Matrix3x4d(v0);
+                Matrix3x4d(v0, transposeMatrix);
                 break;
 
             case Matrix4d v0:
-                Matrix4d(v0);
+                Matrix4d(v0, transposeMatrix);
                 break;
 
             case Matrix4x2d v0:
-                Matrix4x2d(v0);
+                Matrix4x2d(v0, transposeMatrix);
                 break;
 
             case Matrix4x3d v0:
-                Matrix4x3d(v0);
+                Matrix4x3d(v0, transposeMatrix);
                 break;
 
             default:
@@ -622,92 +622,92 @@ public static class ProgramUniformSet
         GL.ProgramUniform4(ProgramId, UniformLocation, v0.Length, SetTypeHelpers.Vector4bArrayToArray(v0));
     }
 
-    public static void Matrix2Array(Matrix2[] v0, bool transposeAll)
+    public static void Matrix2Array(Matrix2[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix2(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix2ArrayToArray(v0));
     }
 
-    public static void Matrix2x3Array(Matrix2x3[] v0, bool transposeAll)
+    public static void Matrix2x3Array(Matrix2x3[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix2x3(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix2x3ArrayToArray(v0));
     }
 
-    public static void Matrix2x4Array(Matrix2x4[] v0, bool transposeAll)
+    public static void Matrix2x4Array(Matrix2x4[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix2x4(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix2x4ArrayToArray(v0));
     }
 
-    public static void Matrix3Array(Matrix3[] v0, bool transposeAll)
+    public static void Matrix3Array(Matrix3[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix3(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix3ArrayToArray(v0));
     }
 
-    public static void Matrix3x2Array(Matrix3x2[] v0, bool transposeAll)
+    public static void Matrix3x2Array(Matrix3x2[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix3x2(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix3x2ArrayToArray(v0));
     }
 
-    public static void Matrix3x4Array(Matrix3x4[] v0, bool transposeAll)
+    public static void Matrix3x4Array(Matrix3x4[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix3x4(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix3x4ArrayToArray(v0));
     }
 
-    public static void Matrix4Array(Matrix4[] v0, bool transposeAll)
+    public static void Matrix4Array(Matrix4[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix4(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix4ArrayToArray(v0));
     }
 
-    public static void Matrix4x2Array(Matrix4x2[] v0, bool transposeAll)
+    public static void Matrix4x2Array(Matrix4x2[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix4x2(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix4x2ArrayToArray(v0));
     }
 
-    public static void Matrix4x3Array(Matrix4x3[] v0, bool transposeAll)
+    public static void Matrix4x3Array(Matrix4x3[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix4x3(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix4x3ArrayToArray(v0));
     }
 
-    public static void Matrix2dArray(Matrix2d[] v0, bool transposeAll)
+    public static void Matrix2dArray(Matrix2d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix2(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix2dArrayToArray(v0));
     }
 
-    public static void Matrix2x3dArray(Matrix2x3d[] v0, bool transposeAll)
+    public static void Matrix2x3dArray(Matrix2x3d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix2x3(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix2x3dArrayToArray(v0));
     }
 
-    public static void Matrix2x4dArray(Matrix2x4d[] v0, bool transposeAll)
+    public static void Matrix2x4dArray(Matrix2x4d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix2x4(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix2x4dArrayToArray(v0));
     }
 
-    public static void Matrix3dArray(Matrix3d[] v0, bool transposeAll)
+    public static void Matrix3dArray(Matrix3d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix3(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix3dArrayToArray(v0));
     }
 
-    public static void Matrix3x2dArray(Matrix3x2d[] v0, bool transposeAll)
+    public static void Matrix3x2dArray(Matrix3x2d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix3x2(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix3x2dArrayToArray(v0));
     }
 
-    public static void Matrix3x4dArray(Matrix3x4d[] v0, bool transposeAll)
+    public static void Matrix3x4dArray(Matrix3x4d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix3x4(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix3x4dArrayToArray(v0));
     }
 
-    public static void Matrix4dArray(Matrix4d[] v0, bool transposeAll)
+    public static void Matrix4dArray(Matrix4d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix4(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix4dArrayToArray(v0));
     }
 
-    public static void Matrix4x2dArray(Matrix4x2d[] v0, bool transposeAll)
+    public static void Matrix4x2dArray(Matrix4x2d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix4x2(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix4x2dArrayToArray(v0));
     }
 
-    public static void Matrix4x3dArray(Matrix4x3d[] v0, bool transposeAll)
+    public static void Matrix4x3dArray(Matrix4x3d[] v0, bool transposeAll = true)
     {
         GL.ProgramUniformMatrix4x3(ProgramId, UniformLocation, v0.Length, transposeAll, SetTypeHelpers.Matrix4x3dArrayToArray(v0));
     }
