@@ -7,7 +7,7 @@ namespace Backend.Graphics.OpenGL;
 public class GlProgram : IGlObject
 {
     private bool LinkedInternal = false;
-    private Dictionary<string, int> UniformCache = new(); 
+    private Dictionary<string, int> UniformCache = new();
 
     public bool Separable { get; private set; }
     public int Id { get; private set; }

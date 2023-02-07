@@ -7,7 +7,7 @@ public static class SetTypeHelpers
     public static int[] Vector2iArrayToArray(Vector2i[] vectors)
     {
         int[] result = new int[2 * vectors.Length];
-        
+
         for (int i = 0; i < vectors.Length; i++)
         {
             result[2 * i] = vectors[i].X;

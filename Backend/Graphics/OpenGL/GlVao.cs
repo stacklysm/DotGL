@@ -1,7 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
-using System.Text;
-
 namespace Backend.Graphics.OpenGL;
 
 public class GlVao : IBindableGlObject

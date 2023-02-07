@@ -17,13 +17,13 @@ public class GlShader : IGlObject
 		ShaderType = shaderType;
 	}
 
-    public void Create()
+	public void Create()
 	{
 		Id = GL.CreateShader(ShaderType);
-        GL.ShaderSource(Id, ShaderSource);
-    }
+		GL.ShaderSource(Id, ShaderSource);
+	}
 
-    public void Delete()
+	public void Delete()
 	{
 		GL.DeleteShader(Id);
 		Id = 0;

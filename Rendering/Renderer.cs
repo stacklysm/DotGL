@@ -1,12 +1,10 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
-
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
-using Backend.Graphics.OpenGL;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Rendering;
 
@@ -81,7 +79,7 @@ public class Renderer
     private Renderer()
     {
         ClearColor = Color4.Gainsboro;
-        
+
         RenderOutput = new(WindowSettings1, WindowSettings2);
         RenderOutput.MakeCurrent();
     }
