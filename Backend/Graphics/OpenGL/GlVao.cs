@@ -8,6 +8,8 @@ public class GlVao : IBindableGlObject
     private readonly Dictionary<int, List<IVertexAttribute>> Attributes = new();
 
     public int Id { get; private set; }
+    // FIXME: Add better validation for this type
+    public bool Valid => BindingPoints.Count != 0 && Attributes.Count != 0 && Id != 0;
 
     public void Create()
     {

@@ -6,8 +6,11 @@ namespace Backend.Graphics.OpenGL;
 
 public class GlBuffer : IBindableGlObject
 {
-    public int Id { get; private set; }
     public BufferTarget Target { get; private set; }
+
+    public int Id { get; private set; }
+    // FIXME: Add better validation for this type
+    public bool Valid => Id != 0;
 
     public GlBuffer(BufferTarget target)
     {

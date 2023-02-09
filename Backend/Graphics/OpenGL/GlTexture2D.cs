@@ -9,6 +9,8 @@ public class GlTexture2D : IBindableGlObject
     private int MipmapLevel { get; set; }
 
     public int Id { get; private set; }
+    // FIXME: Add better validation for this type
+    public bool Valid => TextureSource != null && Id != 0;
 
     public GlTexture2D(ITextureSource textureSource, TextureUnit unit, int mipmapLevel = 0)
     {
