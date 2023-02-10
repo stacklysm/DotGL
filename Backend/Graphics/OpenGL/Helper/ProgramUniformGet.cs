@@ -4,10 +4,10 @@ using OpenTK.Mathematics;
 namespace Backend.Graphics.OpenGL.Helper;
 
 /// <summary>
-/// Contains helper functions to retrieve unifomrs from a program.
+/// Contains helper functions to retrieve uniforms from a program.
 /// </summary>
 /// <remarks>
-/// Before calling <see cref="ProgramUniformGet.GetUniform{TUniform}"/>, make sure to set the properties <see cref="ProgramId"/> and <see cref="UniformLocation"/> accordingly.
+/// Make sure to set the properties <see cref="ProgramId"/> and <see cref="UniformLocation"/> before calling <see cref="ProgramUniformGet.GetUniform{TUniform}"/>.
 /// </remarks>
 public static class ProgramUniformGet
 {
@@ -22,11 +22,11 @@ public static class ProgramUniformGet
     public static int UniformLocation { get; set; }
 
     /// <summary>
-    /// Uses the properties <see cref="ProgramId"/> and <see cref="UniformLocation"/> in order to return the uniform value.
+    /// Gets the value of a program uniform.
     /// </summary>
     /// <typeparam name="TUniform">The type of the uniform.</typeparam>
     /// <returns>The uniform value.</returns>
-    /// <exception cref="OpenGLException">Thrown when the uniform type is not implemented.</exception>
+    /// <exception cref="OpenGLException">Thrown when the uniform type couldn't be handled.</exception>
     public static TUniform GetUniform<TUniform>()
         where TUniform : struct
     {
@@ -75,12 +75,12 @@ public static class ProgramUniformGet
     }
 
     /// <summary>
-    /// Uses the properties <see cref="ProgramId"/> and <see cref="UniformLocation"/> in order to return the array uniform.
+    /// Gets the value of an array uniform.
     /// </summary>
     /// <typeparam name="TUniform">The type of the array uniform.</typeparam>
     /// <param name="length">The length of the array</param>
     /// <returns>The array uniform.</returns>
-    /// <exception cref="OpenGLException">Thrown when the array uniform type is not implemented.</exception>
+    /// <exception cref="OpenGLException">Thrown when the array type couldn't be handled.</exception>
     public static TUniform[] GetUniform<TUniform>(int length)
         where TUniform : struct
     {

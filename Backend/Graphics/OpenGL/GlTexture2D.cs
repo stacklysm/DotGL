@@ -2,6 +2,8 @@
 
 namespace Backend.Graphics.OpenGL;
 
+// NOTE: Documentation for this class will be added later on, seeing as it will go through many changes throughout the project timeline
+// NOTE: Create a type which abstracts properties common to all (or most) of the texture types, such as dimensions, data, unit, target, parameters and maybe more
 public class GlTexture2D : IBindableGlObject
 {
     private ITextureSource TextureSource { get; set; }
@@ -36,9 +38,9 @@ public class GlTexture2D : IBindableGlObject
         GL.BindTexture(TextureTarget.Texture2D, Id);
     }
 
-    public void Unbind()
+    public static void Unbind(TextureTarget target)
     {
-        GL.BindTexture(TextureTarget.Texture2D, 0);
+        GL.BindTexture(target, 0);
     }
 
     public void TextureParameter<TParam>(TextureParameterName parameter, TParam value)

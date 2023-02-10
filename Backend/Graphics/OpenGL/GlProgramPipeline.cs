@@ -61,7 +61,7 @@ public class GlProgramPipeline : IBindableGlObject
     /// <summary>
     /// Unbinds the current pipeline object from the OpenGL context.
     /// </summary>
-    public void Unbind()
+    public static void Unbind()
     {
         GL.BindProgramPipeline(0);
     }

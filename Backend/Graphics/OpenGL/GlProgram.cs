@@ -35,6 +35,26 @@ public class GlProgram : IGlObject
     public bool Valid => Id != 0 && Linked;
 
     /// <summary>
+    /// Gets the location of an uniform and stores it in memory.
+    /// </summary>
+    /// <param name="uniformName">The name of the uniform.</param>
+    /// <exception cref="OpenGLException">Thrown when the uniform name could not be located.</exception>
+    /// <returns>The location of the uniform.</returns>
+    private int GetUniformLocation(string uniformName)
+    {
+        int uniformLocation = GL.GetUniformLocation(Id, uniformName);
+
+        if (uniformLocation == Constants.UNIFORM_NOT_FOUND)
+        {
+            throw new OpenGLException(Constants.ERROR_UNIFORM_NOT_FOUND, (int)GL.GetError());
+        }
+
+        UniformCache.Add(uniformName, uniformLocation);
+
+        return uniformLocation;
+    }
+
+    /// <summary>
     /// Initializes a new instance of <see cref="GlProgram"/>.
     /// </summary>
     /// <param name="separable">Indicates whether the program will be used in a Program Pipeline, defaults to <see langword="false"/>.</param>
@@ -74,7 +94,7 @@ public class GlProgram : IGlObject
     /// <summary>
     /// Detaches a shader to the program.
     /// </summary>
-    /// <remarks>Detaching a shader allows it to be deleted when calling <see cref="GlShader.Delete"/>.</remarks>
+    /// <remarks>Detaching a shader from the program allows it to be deleted when calling <see cref="GlShader.Delete"/>.</remarks>
     /// <param name="shader">The shader object being attached.</param>
     public void DetachShader(GlShader shader)
     {
@@ -112,110 +132,78 @@ public class GlProgram : IGlObject
     }
 
     /// <summary>
-    /// Unbinds any program from the OpenGL context.
+    /// Unbinds the currently active program from the OpenGL context.
     /// </summary>
-    public static void UnbindCurrentProgram()
+    public static void Unbind()
     {
         GL.UseProgram(0);
     }
 
     /// <summary>
-    /// Specifies a value for the shader program uniform.
+    /// Sets the value of an uniform variable.
     /// </summary>
-    /// <typeparam name="TUniform">The type of the uniform (check for compatibility in the project README).</typeparam>
+    /// <typeparam name="TUniform">The type of the variable.</typeparam>
     /// <param name="uniformName">The name of the uniform.</param>
-    /// <param name="value">The new value of the uniform.</param>
+    /// <param name="value">The value being assigned to the uniform.</param>
     /// <param name="transposeMatrix">
-    /// For matrix types, it indicates whether the matrix should be transposed before being uploaded to the GPU, defaults to <see langword="false"/>.
+    /// Indicates whether a matrix should be transposed, defaults to <see langword="false"/>.
     /// </param>
-    /// <exception cref="OpenGLException">Thrown when OpenGL is unable to locate the uniform by the name provided.</exception>
+    /// <exception cref="OpenGLException">Thrown when the uniform name could not be located.</exception>
     public void SetUniform<TUniform>(string uniformName, TUniform value, bool transposeMatrix = false)
         where TUniform : struct
     {
-        int uniformLocation = UniformCache.ContainsKey(uniformName) switch
-        {
-            true => UniformCache[uniformName],
-            false => GL.GetUniformLocation(Id, uniformName)
-        };
-
-        if (uniformLocation == Constants.UNIFORM_NOT_FOUND)
-        {
-            throw new OpenGLException(Constants.ERROR_UNIFORM_NOT_FOUND, (int)GL.GetError());
-        }
-
         ProgramUniformSet.ProgramId = Id;
-        ProgramUniformSet.UniformLocation = uniformLocation;
+        ProgramUniformSet.UniformLocation = UniformCache.TryGetValue(uniformName, out int uniformLocation) ? uniformLocation : GetUniformLocation(uniformName);
         ProgramUniformSet.SetUniform(value, transposeMatrix);
     }
 
     /// <summary>
-    /// Specifies an array for the shader program uniform.
+    /// Sets the value of an uniform array variable.
     /// </summary>
-    /// <typeparam name="TUniform">The array type of the uniform (check for compatibility in the project README).</typeparam>
+    /// <typeparam name="TUniform">The type of the array.</typeparam>
     /// <param name="uniformName">The name of the uniform.</param>
-    /// <param name="value">The new value of the uniform.</param>
+    /// <param name="value">The array being assigned to the uniform.</param>
     /// <param name="transposeMatrices">
-    /// For matrix types, it indicates whether all matrices in the array should be transposed before being uploaded to the GPU, defaults to <see langword="false"/>.
+    /// Indicates whether all matrices in the array should be transposed, defaults to <see langword="false"/>.
     /// </param>
-    /// <exception cref="OpenGLException">Thrown when OpenGL is unable to locate the uniform by the name provided.</exception>
+    /// <exception cref="OpenGLException">Thrown when the uniform name could not be located.</exception>
     public void SetUniformArray<TUniform>(string uniformName, TUniform[] value, bool transposeMatrices = false)
         where TUniform : struct
     {
-        int uniformLocation = GL.GetUniformLocation(Id, uniformName);
-
-        if (uniformLocation == Constants.UNIFORM_NOT_FOUND)
-        {
-            throw new OpenGLException(Constants.ERROR_UNIFORM_NOT_FOUND, (int)GL.GetError());
-        }
-
         ProgramUniformSet.ProgramId = Id;
-        ProgramUniformSet.UniformLocation = uniformLocation;
+        ProgramUniformSet.UniformLocation = UniformCache.TryGetValue(uniformName, out int uniformLocation) ? uniformLocation : GetUniformLocation(uniformName);
         ProgramUniformSet.SetUniform(value, transposeMatrices);
     }
 
     /// <summary>
-    /// Retrieves an uniform value from the shader program.
+    /// Gets the value of a uniform variable.
     /// </summary>
     /// <typeparam name="TUniform">The type of the uniform.</typeparam>
     /// <param name="uniformName">The name of the uniform.</param>
     /// <returns>The value of the uniform.</returns>
-    /// <exception cref="OpenGLException">Thrown when OpenGL is unable to locate the uniform by the name provided.</exception>
+    /// <exception cref="OpenGLException">Thrown when the uniform name could not be located.</exception>
     public TUniform GetUniform<TUniform>(string uniformName)
         where TUniform : struct
     {
-        int uniformLocation = GL.GetUniformLocation(Id, uniformName);
-
-        if (uniformLocation == Constants.UNIFORM_NOT_FOUND)
-        {
-            throw new OpenGLException(Constants.ERROR_UNIFORM_NOT_FOUND, (int)GL.GetError());
-        }
-
         ProgramUniformSet.ProgramId = Id;
-        ProgramUniformSet.UniformLocation = uniformLocation;
+        ProgramUniformSet.UniformLocation = UniformCache.TryGetValue(uniformName, out int uniformLocation) ? uniformLocation : GetUniformLocation(uniformName);
 
         return ProgramUniformGet.GetUniform<TUniform>();
     }
 
     /// <summary>
-    /// Retrieves an array uniform from the shader program.
+    /// Gets the value of a uniform array variable.
     /// </summary>
-    /// <typeparam name="TUniform">The type of the array uniform.</typeparam>
+    /// <typeparam name="TUniform">The type of the array.</typeparam>
     /// <param name="uniformName">The name of the uniform.</param>
-    /// <param name="length">The number of elements in the array uniform.</param>
-    /// <returns>The value of the uniform.</returns>
-    /// <exception cref="OpenGLException">Thrown when OpenGL is unable to locate the uniform by the name provided.</exception>
+    /// <param name="length">The number of elements in the array.</param>
+    /// <returns>The value of the array uniform.</returns>
+    /// <exception cref="OpenGLException">Thrown when the uniform name could not be located.</exception>
     public TUniform[] GetArrayUniform<TUniform>(string uniformName, int length)
         where TUniform : struct
     {
-        int uniformLocation = GL.GetUniformLocation(Id, uniformName);
-
-        if (uniformLocation == Constants.UNIFORM_NOT_FOUND)
-        {
-            throw new OpenGLException(Constants.ERROR_UNIFORM_NOT_FOUND, (int)GL.GetError());
-        }
-
         ProgramUniformSet.ProgramId = Id;
-        ProgramUniformSet.UniformLocation = uniformLocation;
+        ProgramUniformSet.UniformLocation = UniformCache.TryGetValue(uniformName, out int uniformLocation) ? uniformLocation : GetUniformLocation(uniformName);
 
         return ProgramUniformGet.GetUniform<TUniform>(length);
     }

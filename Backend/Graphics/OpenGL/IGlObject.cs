@@ -1,7 +1,7 @@
 ﻿namespace Backend.Graphics.OpenGL;
 
 /// <summary>
-/// Defines members to identify and control OpenGL objects.
+/// Defines a common contract followed by most OpenGL objects.
 /// </summary>
 public interface IGlObject
 {
@@ -21,7 +21,7 @@ public interface IGlObject
     void Create();
 
     /// <summary>
-    /// Deletes the object from the OpenGL context and detaches it from any container object.
+    /// Deletes the object from the context.
     /// </summary>
     void Delete();
 }
