@@ -1,4 +1,5 @@
 # DotGL
+![Project Version](https://img.shields.io/badge/Project%20Version-0.0.1-orange)
 ![OpenTK Version](https://img.shields.io/nuget/v/OpenTK?label=OpenTK)
 ![ImageSharp Version](https://img.shields.io/nuget/v/SixLabors.ImageSharp?label=SixLabors.ImageSharp)
 
