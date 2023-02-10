@@ -7,6 +7,11 @@ This project aims to be a feature complete, extensible 3D game engine, written f
 ## Roadmap for v0.0.2
 | Goal | Status |
 |------|--------|
-| Add a sample code to the project | 🟥 Pending |
 | Document the remaining public APIs | 🟨 In progress |
-| Improve the shader generator | 🟥 Pending |
+| Overhaul the texture abstraction | 🟨 In progress |
+| Add a sample code to the project | 🟥 Pending |
+
+## Planed features for v0.0.3
+- Enable/disable Vertex Attributes individually
+- Improved reliability by adding validation checks
+- Shader code generation
