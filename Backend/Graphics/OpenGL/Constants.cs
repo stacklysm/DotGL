@@ -21,4 +21,8 @@ public static class Constants
     public const string ERROR_ATTRIBUTE_NOT_FOUND = "The attribute specified does not exist for this VAO.";
     public const string ERROR_BINARY_SHADER_NOT_FOUND = "Cannot find shader in the specified path.";
     public const string ERROR_TEXTURE_PARAMETER_NOT_SUPORTED = "This texture parameter is not supported yet.";
+    public const string ERROR_INVALID_MIPMAP_TYPE = "Mipmaps are not supported for this texture target.";
+    public const string ERROR_INVALID_PIXEL_TYPE = "Pixel type not supported.";
+    public const string ERROR_INVALID_DIMENSIONS = "The dimensions and/or type provided are not supported.";
+    public const string ERROR_INVALID_DATA_LENGTH = "The data array length is not consistent with the dimensions provided.";
 }

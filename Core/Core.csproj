@@ -10,8 +10,4 @@
     <PackageReference Include="OpenTK" Version="4.7.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Parsing\GlTf\" />
-  </ItemGroup>
-
 </Project>
