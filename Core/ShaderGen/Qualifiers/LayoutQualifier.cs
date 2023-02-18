@@ -6,6 +6,11 @@ public class LayoutQualifier : IQualifier
 {
     private Dictionary<string, int?> Value { get; } = new();
 
+    private string QualifierIdList => Value
+        .OrderBy(x => (x.Value, x.Key))
+        .Select(y => $"{y.Key}{(y.Value is not null ? $" = {y.Key}" : "")}")
+        .Aggregate((x, y) => $"{x}, {y}");
+
     public LayoutQualifier Shared()
     {
         Value.Add("shared", null);
@@ -17,79 +22,79 @@ public class LayoutQualifier : IQualifier
         Value.Add("packed", null);
         return this;
     }
-    
+
     public LayoutQualifier Std140()
     {
         Value.Add("std140", null);
         return this;
     }
-    
+
     public LayoutQualifier Std430()
     {
         Value.Add("std430", null);
         return this;
     }
-    
+
     public LayoutQualifier RowMajor()
-    { 
+    {
         Value.Add("row_major", null);
         return this;
     }
-    
+
     public LayoutQualifier ColumnMajor()
     {
         Value.Add("column_major", null);
         return this;
     }
-    
+
     public LayoutQualifier Binding(int bindingIndex)
     {
         Value.Add("binding", bindingIndex);
         return this;
     }
-    
+
     public LayoutQualifier Offset(int offset)
     {
         Value.Add("offset", offset);
         return this;
     }
-    
+
     public LayoutQualifier Align(int alignment)
     {
         Value.Add("align", alignment);
         return this;
     }
-    
+
     public LayoutQualifier Set(int descriptorSet)
     {
         Value.Add("set", descriptorSet);
         return this;
     }
-    
+
     public LayoutQualifier PushConstant()
     {
         Value.Add("push_constant", null);
         return this;
     }
-    
+
     public LayoutQualifier InputAttachmentIndex(int attachmentIndex)
     {
         Value.Add("input_attachment_index", attachmentIndex);
         return this;
     }
-    
+
     public LayoutQualifier Location(int location)
     {
         Value.Add("location", location);
         return this;
     }
-    
+
     public LayoutQualifier Component(int component)
     {
         Value.Add("component", component);
         return this;
     }
-    
+
     public LayoutQualifier Index(int index)
     {
         Value.Add("index", index);
@@ -294,7 +299,55 @@ public class LayoutQualifier : IQualifier
         return this;
     }
 
-    public string GetQualifier() => string.Join(", ", Value
-        .OrderBy(x => (x.Value, x.Key))
-        .Select(y => $"{y.Key}{(y.Value is not null ? $"= {y.Key}" : "")}"));
+    public LayoutQualifier ImageType(LayoutQualifierImageType imageType)
+    {
+        string qualifier = imageType switch
+        {
+            LayoutQualifierImageType.Rgba32f => "rgba32f",
+            LayoutQualifierImageType.Rgba16f => "rgba16f",
+            LayoutQualifierImageType.Rg32f => "rg32f",
+            LayoutQualifierImageType.Rg16f => "rg16f",
+            LayoutQualifierImageType.R11fg11fb10f => "r11f_g11f_b10f",
+            LayoutQualifierImageType.R32f => "r32f",
+            LayoutQualifierImageType.R16f => "r16f",
+            LayoutQualifierImageType.Rgba16 => "rgba16",
+            LayoutQualifierImageType.Rgb10a2 => "rgb10_a2",
+            LayoutQualifierImageType.Rgba8 => "rgba8",
+            LayoutQualifierImageType.Rg16 => "rg16",
+            LayoutQualifierImageType.Rg8 => "rg8",
+            LayoutQualifierImageType.R16 => "r16",
+            LayoutQualifierImageType.R8 => "r8",
+            LayoutQualifierImageType.Rgba16snorm => "rgba16_snorm",
+            LayoutQualifierImageType.Rgba8snorm => "rgba8_snorm",
+            LayoutQualifierImageType.Rg16snorm => "rg16_snorm",
+            LayoutQualifierImageType.Rg8snorm => "rg8_snorm",
+            LayoutQualifierImageType.R16snorm => "r16_snorm",
+            LayoutQualifierImageType.R8snorm => "r8_snorm",
+            LayoutQualifierImageType.Rgba32i => "rgba32i",
+            LayoutQualifierImageType.Rgba16i => "rgba16i",
+            LayoutQualifierImageType.Rgba8i => "rgba8i",
+            LayoutQualifierImageType.Rg32i => "rg32i",
+            LayoutQualifierImageType.Rg16i => "rg16i",
+            LayoutQualifierImageType.Rg8i => "rg8i",
+            LayoutQualifierImageType.R32i => "r32i",
+            LayoutQualifierImageType.R16i => "r16i",
+            LayoutQualifierImageType.R8i => "r8i",
+            LayoutQualifierImageType.Rgba32ui => "rgba32ui",
+            LayoutQualifierImageType.Rgba16ui => "rgba16ui",
+            LayoutQualifierImageType.Rgb10a2ui => "rgb10_a2ui",
+            LayoutQualifierImageType.Rgba8ui => "rgba8ui",
+            LayoutQualifierImageType.Rg32ui => "rg32ui",
+            LayoutQualifierImageType.Rg16ui => "rg16ui",
+            LayoutQualifierImageType.Rg8ui => "rg8ui",
+            LayoutQualifierImageType.R32ui => "r32ui",
+            LayoutQualifierImageType.R16ui => "r16ui",
+            LayoutQualifierImageType.R8ui => "r8ui",
+            _ => throw new NotImplementedException()
+        };
+
+        Value.Add(qualifier, null);
+        return this;
+    }
+
+    public string GetQualifier() => $"layout({QualifierIdList})";
 }

@@ -1,5 +1,5 @@
 ﻿namespace Core.ShaderGen.Descriptors;
-    
+
 public class ArrayTypeDescriptor : ITypeDescriptor
 {
     public DataType BaseType => TypeDescriptor.Type;
